@@ -1,0 +1,1577 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>H1TL3R0XX - Lanzamiento Oficial</title>
+    <!-- Fuentes: Alex Brush, Pirata One, Bebas Neue, Montserrat -->
+    <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bebas+Neue&family=Montserrat:wght@500;700;900&family=Pirata+One&display=swap" rel="stylesheet">
+    <style>
+        /* -------------------------------------------------------------
+           0. CURSOR PERSONALIZADO TÉTRICO Y OSCURO
+        ------------------------------------------------------------- */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            cursor: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28"><polygon points="3,3 22,11 13,13 11,22" fill="%23030208" stroke="%23c084fc" stroke-width="2"/><circle cx="12" cy="12" r="2" fill="%23ef4444"/></svg>') 3 3, auto !important;
+        }
+
+        body {
+            background-color: #030208;
+            color: #ffffff;
+            font-family: 'Montserrat', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 40px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* -------------------------------------------------------------
+           PANTALLA DE CARGA INICIAL (LOADER)
+        ------------------------------------------------------------- */
+        #loader-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: #030208;
+            z-index: 20000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader-spinner {
+            width: 50px;
+            height: 50px;
+            border: 3px solid rgba(168, 85, 247, 0.2);
+            border-top: 3px solid #a855f7;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.5);
+        }
+
+        .loader-text {
+            font-size: 1.1rem;
+            font-weight: 700;
+            letter-spacing: 4px;
+            color: #c084fc;
+            text-transform: uppercase;
+            animation: pulseText 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes pulseText {
+            0% { opacity: 0.4; }
+            100% { opacity: 1; text-shadow: 0 0 12px rgba(168, 85, 247, 0.8); }
+        }
+
+        /* -------------------------------------------------------------
+           REPRODUCTOR DE AUDIO AMBIENTAL
+        ------------------------------------------------------------- */
+        .audio-control-btn {
+            position: fixed;
+            top: 25px;
+            right: 25px;
+            z-index: 10000;
+            background: rgba(18, 14, 28, 0.85);
+            border: 1px solid rgba(168, 85, 247, 0.5);
+            color: #c084fc;
+            padding: 10px 18px;
+            border-radius: 30px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+            backdrop-filter: blur(8px);
+            transition: all 0.3s ease;
+        }
+
+        .audio-control-btn:hover {
+            border-color: #a855f7;
+            box-shadow: 0 0 22px rgba(168, 85, 247, 0.6);
+            color: #ffffff;
+            transform: scale(1.05);
+        }
+
+        .audio-icon {
+            width: 16px;
+            height: 16px;
+            fill: currentColor;
+        }
+
+        /* Flash de Relámpago */
+        .lightning-flash {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(255, 255, 255, 0.85);
+            mix-blend-mode: overlay;
+            z-index: 0;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.05s ease-out;
+        }
+
+        /* -------------------------------------------------------------
+           1. PANTALLA DE BIENVENIDA & SOBRE ULTRA-REALISTA
+        ------------------------------------------------------------- */
+        #envelope-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: radial-gradient(circle at 50% 40%, rgba(30, 15, 55, 0.88) 0%, rgba(3, 2, 8, 0.96) 80%);
+            backdrop-filter: blur(10px);
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 35px;
+            transition: opacity 1s ease, visibility 1s ease, filter 1s ease;
+            perspective: 1000px;
+        }
+
+        .envelope-aura {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .envelope-aura::before {
+            content: '';
+            position: absolute;
+            width: 120%;
+            height: 120%;
+            background: radial-gradient(circle, rgba(168, 85, 247, 0.25) 0%, rgba(59, 130, 246, 0.15) 40%, transparent 70%);
+            filter: blur(30px);
+            z-index: 0;
+            animation: pulseAura 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes pulseAura {
+            0% { transform: scale(0.95); opacity: 0.6; }
+            100% { transform: scale(1.15); opacity: 1; }
+        }
+
+        #envelope-particles-canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5;
+            pointer-events: none;
+            border-radius: 6px;
+        }
+
+        /* SOBRE ULTRA-REALISTA CON PLIEGUES SUTÍLES Y LIMPIOS */
+        .envelope-wrapper {
+            position: relative;
+            width: 90vw;
+            max-width: 540px;
+            height: 350px;
+            background: linear-gradient(135deg, #4d3522 0%, #322115 50%, #20140c 100%);
+            background-image: 
+                radial-gradient(circle at 50% 40%, rgba(133, 102, 67, 0.35) 0%, transparent 70%),
+                repeating-linear-gradient(0deg, rgba(0,0,0,0.05) 0px, rgba(0,0,0,0.05) 1px, transparent 1px, transparent 4px),
+                repeating-linear-gradient(90deg, rgba(255,255,255,0.008) 0px, rgba(255,255,255,0.008) 2px, transparent 2px, transparent 5px);
+            border-radius: 6px;
+            box-shadow: 
+                0 35px 70px rgba(0, 0, 0, 0.95),
+                inset 0 0 60px rgba(0, 0, 0, 0.85),
+                inset 0 2px 5px rgba(255, 255, 255, 0.08);
+            border: 2px solid #26180e;
+            z-index: 2;
+            overflow: hidden;
+            animation: floatEnvelope 5s ease-in-out infinite;
+            transform-style: preserve-3d;
+            transition: transform 0.1s ease-out;
+        }
+
+        @keyframes floatEnvelope {
+            0%, 100% { transform: translateY(0px) rotate(-1.2deg); }
+            50% { transform: translateY(-12px) rotate(0.8deg); }
+        }
+
+        /* Solapas */
+        .flap-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 270px solid transparent;
+            border-right: 270px solid transparent;
+            border-top: 180px solid rgba(60, 39, 24, 0.92);
+            filter: drop-shadow(0px 8px 10px rgba(0, 0, 0, 0.5));
+            z-index: 3;
+        }
+
+        .flap-left {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-top: 175px solid transparent;
+            border-bottom: 175px solid transparent;
+            border-left: 270px solid rgba(46, 30, 18, 0.65);
+            z-index: 2;
+        }
+
+        .flap-right {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 0;
+            height: 0;
+            border-top: 175px solid transparent;
+            border-bottom: 175px solid transparent;
+            border-right: 270px solid rgba(44, 28, 17, 0.65);
+            z-index: 2;
+        }
+
+        .flap-bottom {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 0;
+            border-left: 270px solid transparent;
+            border-right: 270px solid transparent;
+            border-bottom: 170px solid rgba(35, 22, 14, 0.75);
+            z-index: 2;
+            filter: drop-shadow(0px -4px 8px rgba(0, 0, 0, 0.3));
+        }
+
+        .wax-seal-wrapper {
+            position: absolute;
+            top: 180px;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 72px;
+            height: 72px;
+            z-index: 4;
+            pointer-events: none;
+        }
+
+        .wax-seal-half {
+            position: absolute;
+            top: 0;
+            width: 36px;
+            height: 72px;
+            background: radial-gradient(circle at 35% 35%, #e11d48 0%, #991b1b 60%, #450a0a 100%);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.9), inset 2px 2px 6px rgba(255, 255, 255, 0.4);
+            border: 3px solid #550909;
+            transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s ease;
+        }
+
+        .wax-seal-left {
+            left: 0;
+            border-radius: 36px 0 0 36px;
+            border-right: 1px solid rgba(0, 0, 0, 0.6);
+        }
+
+        .wax-seal-right {
+            right: 0;
+            border-radius: 0 36px 36px 0;
+            border-left: 1px solid rgba(0, 0, 0, 0.6);
+        }
+
+        .seal-broken .wax-seal-left {
+            transform: translateX(-45px) rotate(-30deg);
+            opacity: 0;
+        }
+
+        .seal-broken .wax-seal-right {
+            transform: translateX(45px) rotate(30deg);
+            opacity: 0;
+        }
+
+        /* TEXTO EN EL SOBRE */
+        .envelope-writing {
+            position: absolute;
+            bottom: 38px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-3deg);
+            font-family: 'Alex Brush', cursive;
+            font-size: 2.2rem;
+            color: #3b2716;
+            z-index: 4;
+            letter-spacing: 1px;
+            pointer-events: none;
+            white-space: nowrap;
+            opacity: 1;
+            text-shadow: 
+                0 1.5px 2px rgba(255, 255, 255, 0.25),
+                0 0 1px rgba(0, 0, 0, 0.2);
+        }
+
+        .pass-input-container {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            align-items: center;
+            z-index: 5;
+            background: rgba(18, 14, 28, 0.75);
+            padding: 12px 20px;
+            border-radius: 12px;
+            border: 1px solid rgba(168, 85, 247, 0.4);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.7),
+                0 0 15px rgba(168, 85, 247, 0.2);
+            backdrop-filter: blur(8px);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .pass-input-container:hover {
+            border-color: rgba(168, 85, 247, 0.7);
+            box-shadow: 
+                0 10px 30px rgba(0, 0, 0, 0.7),
+                0 0 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .pass-input {
+            width: 180px;
+            padding: 10px 16px;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            text-align: center;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(5, 3, 10, 0.6);
+            color: #ffffff;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.3s ease;
+        }
+
+        .pass-input::placeholder {
+            color: rgba(255, 255, 255, 0.4);
+            font-weight: 500;
+            letter-spacing: 1px;
+        }
+
+        .pass-input:focus {
+            border-color: #a855f7;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+            background: rgba(5, 3, 10, 0.85);
+        }
+
+        .pass-btn {
+            padding: 10px 22px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.25rem;
+            letter-spacing: 1.5px;
+            background: #a855f7;
+            color: #ffffff;
+            border: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+        }
+
+        .pass-btn:hover {
+            background: #9333ea;
+            box-shadow: 0 0 22px rgba(168, 85, 247, 0.8);
+            transform: translateY(-1px);
+        }
+
+        #envelope-screen.unlock-animation .envelope-wrapper {
+            transform: scale(1.15) rotate(0deg) !important;
+            box-shadow: 
+                0 0 90px #a855f7,
+                0 0 130px #3b82f6;
+            animation: none;
+        }
+
+        #envelope-screen.fade-out {
+            opacity: 0;
+            visibility: hidden;
+            filter: blur(12px);
+        }
+
+        .shake {
+            animation: shakeAnim 0.4s ease-in-out;
+        }
+
+        .envelope-wrapper.shake {
+            border-color: #a855f7 !important;
+            box-shadow: 0 0 30px rgba(168, 85, 247, 0.7), inset 0 0 40px rgba(0, 0, 0, 0.8) !important;
+        }
+
+        .pass-input.shake {
+            border-color: #ef4444 !important;
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.9) !important;
+        }
+
+        @keyframes shakeAnim {
+            0%, 100% { transform: translateX(0) rotate(0deg); }
+            20%, 60% { transform: translateX(-8px) rotate(-1deg); }
+            40%, 80% { transform: translateX(8px) rotate(1deg); }
+        }
+
+        /* -------------------------------------------------------------
+           2. ESTILOS DE LA WEB PRINCIPAL
+        ------------------------------------------------------------- */
+        #atmosphere-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            pointer-events: none;
+        }
+
+        .track-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -2;
+            background: 
+                radial-gradient(circle at 20% 0%, rgba(59, 130, 246, 0.4) 0%, transparent 55%),
+                radial-gradient(circle at 80% 0%, rgba(168, 85, 247, 0.4) 0%, transparent 55%),
+                radial-gradient(ellipse at 50% 60%, rgba(20, 16, 50, 0.85) 0%, #030208 85%);
+        }
+
+        .track-lines {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60vh;
+            z-index: -2;
+            background: repeating-linear-gradient(
+                90deg,
+                transparent,
+                transparent 8%,
+                rgba(168, 85, 247, 0.15) 8.5%,
+                transparent 9%
+            );
+            transform: perspective(500px) rotateX(60deg);
+            transform-origin: bottom center;
+            border-top: 3px solid rgba(59, 130, 246, 0.5);
+            box-shadow: 0 -20px 50px rgba(168, 85, 247, 0.3);
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            text-align: center;
+        }
+
+        h1 {
+            font-family: 'Pirata One', cursive;
+            font-size: 6.5rem;
+            color: #ffffff;
+            text-shadow: 
+                0 0 10px #a855f7,
+                0 0 20px #a855f7,
+                0 0 40px #3b82f6;
+            letter-spacing: 4px;
+            margin-bottom: 5px;
+            line-height: 1.1;
+        }
+
+        .subtitle {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #93c5fd;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.6);
+        }
+
+        .countdown-box {
+            background: rgba(10, 8, 22, 0.85);
+            border: 2px solid #a855f7;
+            box-shadow: 
+                0 0 25px rgba(168, 85, 247, 0.4),
+                inset 0 0 15px rgba(59, 130, 246, 0.3);
+            border-radius: 20px;
+            padding: 40px 20px;
+            margin-bottom: 50px;
+            backdrop-filter: blur(10px);
+        }
+
+        .countdown-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #c084fc;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+        }
+
+        .timer {
+            display: flex;
+            justify-content: center;
+            gap: 35px;
+            flex-wrap: wrap;
+        }
+
+        .time-block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 110px;
+        }
+
+        .time-number {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 5.5rem;
+            line-height: 1;
+            color: #fff;
+            text-shadow: 
+                0 0 15px #3b82f6,
+                0 0 30px #a855f7;
+            letter-spacing: 2px;
+        }
+
+        .time-label {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 4px;
+        }
+
+        .tracklist-card {
+            background: rgba(12, 10, 28, 0.85);
+            border: 2px solid rgba(59, 130, 246, 0.5);
+            border-radius: 20px;
+            padding: 45px 35px;
+            text-align: left;
+            box-shadow: 
+                0 15px 35px rgba(0, 0, 0, 0.8),
+                0 0 30px rgba(59, 130, 246, 0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .tracklist-card h2 {
+            font-family: 'Pirata One', cursive;
+            font-size: 4rem;
+            color: #c084fc;
+            border-bottom: 2px solid #a855f7;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            letter-spacing: 3px;
+        }
+
+        ol {
+            list-style: none;
+            counter-reset: track-counter;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        li {
+            counter-increment: track-counter;
+            font-size: 1.3rem;
+            font-weight: 700;
+            padding: 16px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            border-left: 4px solid #3b82f6;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        li::before {
+            content: counter(track-counter, decimal-leading-zero) ".";
+            font-family: 'Bebas Neue', sans-serif;
+            color: #a855f7;
+            font-size: 2rem;
+            margin-right: 15px;
+            text-shadow: 0 0 8px rgba(168, 85, 247, 0.6);
+            letter-spacing: 1px;
+        }
+
+        li:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-left-color: #a855f7;
+            transform: translateX(8px);
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
+        }
+
+        /* --- EFECTO BORROSO / SECRETO --- */
+        .secret-reveal {
+            filter: blur(8px);
+            user-select: none;
+            opacity: 0.4;
+            transition: filter 0.8s ease, opacity 0.8s ease;
+            text-shadow: 0 0 12px rgba(168, 85, 247, 0.8);
+        }
+
+        .revealed {
+            filter: blur(0px) !important;
+            opacity: 1 !important;
+            text-shadow: none;
+        }
+
+        .track-info-container {
+            display: flex;
+            align-items: center;
+            flex-grow: 1;
+            flex-wrap: wrap;
+        }
+
+        .feat {
+            color: #60a5fa;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-left: 10px;
+            font-style: italic;
+        }
+
+        /* Botón de Preview de Audio para Temas */
+        .preview-btn {
+            background: rgba(168, 85, 247, 0.2);
+            border: 1px solid #a855f7;
+            color: #c084fc;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 0 0 8px rgba(168, 85, 247, 0.2);
+            margin-left: auto;
+        }
+
+        .preview-btn:hover {
+            background: #a855f7;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            transform: scale(1.05);
+        }
+
+        .preview-btn.playing {
+            background: #22c55e;
+            border-color: #4ade80;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(34, 197, 94, 0.8);
+            animation: pulsePreview 1s infinite alternate;
+        }
+
+        @keyframes pulsePreview {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.08); }
+        }
+
+        /* Icono de Candado Cerrado */
+        .lock-icon-container {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #ef4444;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .lock-icon {
+            width: 14px;
+            height: 14px;
+            fill: currentColor;
+        }
+
+        .clickable-artist {
+            cursor: pointer !important;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+        }
+        .clickable-artist:hover {
+            color: #c084fc;
+            text-shadow: 0 0 8px #a855f7;
+        }
+
+        /* -------------------------------------------------------------
+           SECCIÓN DE ARTISTAS Y COLABORADORES
+        ------------------------------------------------------------- */
+        .artists-card {
+            background: rgba(12, 10, 28, 0.85);
+            border: 2px solid rgba(168, 85, 247, 0.5);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 30px rgba(168, 85, 247, 0.2);
+        }
+
+        .artists-card h2 {
+            font-family: 'Pirata One', cursive;
+            font-size: 3.8rem;
+            color: #93c5fd;
+            border-bottom: 2px solid #3b82f6;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+            text-shadow: 0 0 15px rgba(59, 130, 246, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .artists-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 18px;
+            justify-content: center;
+        }
+
+        .artist-tag {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(168, 85, 247, 0.3);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer !important;
+        }
+
+        .artist-name {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #ffffff;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .artist-role {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 0.85rem;
+            color: #c084fc;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            opacity: 0.8;
+        }
+
+        .artist-tag:hover {
+            background: rgba(168, 85, 247, 0.15);
+            border-color: #a855f7;
+            transform: translateY(-6px) scale(1.03);
+            box-shadow: 0 8px 25px rgba(168, 85, 247, 0.5), inset 0 0 10px rgba(168, 85, 247, 0.3);
+        }
+
+        .artist-tag:hover .artist-name {
+            color: #c084fc;
+            text-shadow: 0 0 10px #a855f7, 0 0 20px #a855f7;
+        }
+
+        /* -------------------------------------------------------------
+           MODAL PARA DESCRIPCIÓN DE ARTISTAS
+        ------------------------------------------------------------- */
+        #artist-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(3, 2, 8, 0.8);
+            backdrop-filter: blur(6px);
+            z-index: 30000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        #artist-modal.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: rgba(18, 14, 32, 0.95);
+            border: 2px solid #a855f7;
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), inset 0 0 15px rgba(59, 130, 246, 0.3);
+            padding: 35px 30px;
+            border-radius: 16px;
+            max-width: 420px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            transform: scale(0.85);
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #artist-modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-title {
+            font-family: 'Pirata One', cursive;
+            font-size: 2.5rem;
+            color: #93c5fd;
+            margin-bottom: 12px;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(59, 130, 246, 0.8);
+        }
+
+        .modal-desc {
+            font-size: 1.05rem;
+            color: #e2e8f0;
+            line-height: 1.5;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .modal-close-btn {
+            background: #a855f7;
+            color: #ffffff;
+            border: none;
+            padding: 10px 25px;
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 1.2rem;
+            letter-spacing: 1.5px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 0 12px rgba(168, 85, 247, 0.5);
+        }
+
+        .modal-close-btn:hover {
+            background: #9333ea;
+            box-shadow: 0 0 20px rgba(168, 85, 247, 0.8);
+        }
+
+        footer {
+            margin-top: 50px;
+            font-size: 1rem;
+            color: #64748b;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .envelope-wrapper { height: 290px; }
+            .flap-top { border-left-width: 210px; border-right-width: 210px; border-top-width: 145px; }
+            .flap-bottom { border-left-width: 210px; border-right-width: 210px; border-bottom-width: 140px; }
+            .flap-left { border-top-width: 145px; border-bottom-width: 145px; border-left-width: 210px; }
+            .flap-right { border-top-width: 145px; border-bottom-width: 145px; border-right-width: 210px; }
+            .wax-seal-wrapper { top: 145px; width: 60px; height: 60px; }
+            .wax-seal-half { width: 30px; height: 60px; }
+            .wax-seal-left { border-radius: 30px 0 0 30px; }
+            .wax-seal-right { border-radius: 0 30px 30px 0; }
+            .envelope-writing { font-size: 1.6rem; bottom: 25px; }
+            h1 { font-size: 4rem; }
+            .subtitle { font-size: 1.1rem; }
+            .tracklist-card h2, .artists-card h2 { font-size: 2.8rem; }
+            .time-number { font-size: 3.8rem; }
+            .time-block { min-width: 70px; }
+            .timer { gap: 15px; }
+            li { font-size: 1.1rem; padding: 12px 15px; flex-direction: column; align-items: flex-start; gap: 10px; }
+            .track-info-container { width: 100%; }
+            .preview-btn, .lock-icon-container { margin-left: 0; width: 100%; justify-content: center; }
+            .feat { font-size: 0.95rem; display: block; width: 100%; margin-left: 0; margin-top: 4px; }
+            .artists-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Pantalla Inicial de Carga -->
+    <div id="loader-screen">
+        <div class="loader-spinner"></div>
+        <div class="loader-text">Cargando experiencia...</div>
+    </div>
+
+    <!-- Capa de Destello para los Relámpagos -->
+    <div id="lightning" class="lightning-flash"></div>
+
+    <!-- Modal Interactivo para Artistas -->
+    <div id="artist-modal" onclick="closeArtistModal(event)">
+        <div class="modal-content" onclick="event.stopPropagation()">
+            <h3 class="modal-title" id="modalArtistName">Artista</h3>
+            <p class="modal-desc" id="modalArtistDesc">(INSERTAR DESCRIPCION de [Nombre del Artista])</p>
+            <button class="modal-close-btn" onclick="closeArtistModal()">CERRAR</button>
+        </div>
+    </div>
+
+    <!-- Botón de Audio Ambiental -->
+    <button class="audio-control-btn" id="audioBtn" onclick="toggleAudio()">
+        <svg class="audio-icon" viewBox="0 0 24 24">
+            <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77-2.99-7.86-7-8.77z"/>
+        </svg>
+        <span id="audioText">SONIDO: OFF</span>
+    </button>
+
+    <!-- Audio de Lluvia de Fondo (Loop) -->
+    <audio id="rainAudio" loop preload="auto">
+        <source src="https://www.orangefreesounds.com/wp-content/uploads/2018/04/Gentle-rain-loop.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Reproductor global oculto para los previews de 15 segundos -->
+    <audio id="previewAudio" preload="none"></audio>
+
+    <!-- Pantalla de Bienvenida Animada -->
+    <div id="envelope-screen">
+        <div class="envelope-aura">
+            <div class="envelope-wrapper" id="interactive-envelope" onclick="shakeEnvelope()">
+                <canvas id="envelope-particles-canvas"></canvas>
+
+                <div class="flap-left"></div>
+                <div class="flap-right"></div>
+                <div class="flap-bottom"></div>
+                <div class="flap-top"></div>
+
+                <div class="wax-seal-wrapper" id="wax-seal">
+                    <div class="wax-seal-half wax-seal-left"></div>
+                    <div class="wax-seal-half wax-seal-right"></div>
+                </div>
+
+                <div class="envelope-writing">Para: Maikel y Papa Alvaro</div>
+            </div>
+        </div>
+
+        <div class="pass-input-container">
+            <input type="text" id="pass-code" class="pass-input" placeholder="CLAVE..." autocomplete="off">
+            <button onclick="unlockSite()" class="pass-btn">ABRIR</button>
+        </div>
+    </div>
+
+    <!-- Canvas de Atmósfera -->
+    <canvas id="atmosphere-canvas"></canvas>
+
+    <div class="track-background"></div>
+    <div class="track-lines"></div>
+
+    <div class="container">
+        <h1>H1TL3R0XX</h1>
+        <p class="subtitle">Álbum Oficial</p>
+
+        <!-- Contador -->
+        <div class="countdown-box">
+            <div class="countdown-title">Tiempo restante para el lanzamiento (Revelación de temas)</div>
+            <div class="timer">
+                <div class="time-block">
+                    <span class="time-number" id="days">00</span>
+                    <span class="time-label">Días</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="hours">00</span>
+                    <span class="time-label">Horas</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="minutes">00</span>
+                    <span class="time-label">Minutos</span>
+                </div>
+                <div class="time-block">
+                    <span class="time-number" id="seconds">00</span>
+                    <span class="time-label">Segundos</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tracklist con Featurings aplicados según la regla exacta de la imagen -->
+        <div class="tracklist-card">
+            <h2>Tracklist</h2>
+            <ol>
+                <!-- Tema 1: Visible -->
+                <li>
+                    <div class="track-info-container">
+                        <span>Salimos de La Calle</span> 
+                        <span class="feat"><span class="clickable-artist" onclick="openArtistModal('DiiL A')">DiiL A</span> Ft. <span class="clickable-artist" onclick="openArtistModal('D Reid')">D Reid</span>, <span class="clickable-artist" onclick="openArtistModal('Bolt')">Bolt</span></span>
+                    </div>
+                    <button class="preview-btn" onclick="playPreview('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3', this)">▶ PREVIEW (15s)</button>
+                </li>
+                <!-- Tema 2: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">Calle 9</span> 
+                        <span class="feat secret-reveal"><span class="clickable-artist" onclick="openArtistModal('DiiL A')">DiiL A</span> Ft. <span class="clickable-artist" onclick="openArtistModal('Gamebetis')">Gamebetis</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+                <!-- Tema 3: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">Michel, Myke, Maikel</span>
+                        <span class="feat secret-reveal"><span class="clickable-artist" onclick="openArtistModal('DiiL A')">DiiL A</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+                <!-- Tema 4: Visible -->
+                <li>
+                    <div class="track-info-container">
+                        <span>Bag Band</span> 
+                        <span class="feat"><span class="clickable-artist" onclick="openArtistModal('D Reid')">D Reid</span>, <span class="clickable-artist" onclick="openArtistModal('Bolt')">Bolt</span></span>
+                    </div>
+                    <button class="preview-btn" onclick="playPreview('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', this)">▶ PREVIEW (15s)</button>
+                </li>
+                <!-- Tema 5: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">Make it Meme</span> 
+                        <span class="feat secret-reveal"><span class="clickable-artist" onclick="openArtistModal('Noizy')">Noizy</span>, <span class="clickable-artist" onclick="openArtistModal('Mori')">Mori</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+                <!-- Tema 6: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">9.58</span> 
+                        <span class="feat secret-reveal"><span class="clickable-artist" onclick="openArtistModal('Bolt')">Bolt</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+                <!-- Tema 7: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">Mero Hitlero</span> 
+                        <span class="feat secret-reveal"><span class="clickable-artist" onclick="openArtistModal('DiiL A')">DiiL A</span> Ft. <span class="clickable-artist" onclick="openArtistModal('D Reid')">D Reid</span>, <span class="clickable-artist" onclick="openArtistModal('Bolt')">Bolt</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+                <!-- Tema 8: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">H1TL3R4$</span> 
+                        <span class="feat secret-reveal"><span class="clickable-artist" onclick="openArtistModal('DiiL A')">DiiL A</span> Ft. <span class="clickable-artist" onclick="openArtistModal('Underwater')">Underwater</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+                <!-- Tema 9: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">Los Bros</span> 
+                        <span class="feat secret-reveal">Ft. <span class="clickable-artist" onclick="openArtistModal('Piti')">Piti</span>, <span class="clickable-artist" onclick="openArtistModal('Mandy')">Mandy</span>, <span class="clickable-artist" onclick="openArtistModal('Mori')">Mori</span>, <span class="clickable-artist" onclick="openArtistModal('Bolt')">Bolt</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+                <!-- Tema 10: Bloqueado -->
+                <li onclick="triggerLockedItem(this)">
+                    <div class="track-info-container">
+                        <span class="secret-reveal">Definitiv⭐s</span> 
+                        <span class="feat secret-reveal"><span class="clickable-artist" onclick="openArtistModal('DiiL A')">DiiL A</span> Ft. <span class="clickable-artist" onclick="openArtistModal('D Reid')">D Reid</span></span>
+                    </div>
+                    <div class="lock-icon-container">
+                        <svg class="lock-icon" viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+                        <span>BLOQUEADO</span>
+                    </div>
+                </li>
+            </ol>
+        </div>
+
+        <!-- Sección de Artistas y Colaboradores -->
+        <div class="artists-card">
+            <h2>Featuring & Créditos</h2>
+            <div class="artists-grid">
+                <div class="artist-tag" onclick="openArtistModal('DiiL A')">
+                    <span class="artist-name">DiiL A</span>
+                    <span class="artist-role">Autor / Feat</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('D Reid')">
+                    <span class="artist-name">D Reid</span>
+                    <span class="artist-role">Feat</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('Bolt')">
+                    <span class="artist-name">Bolt</span>
+                    <span class="artist-role">Feat / Vocal</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('Gamebetis')">
+                    <span class="artist-name">Gamebetis</span>
+                    <span class="artist-role">Feat</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('Noizy')">
+                    <span class="artist-name">Noizy</span>
+                    <span class="artist-role">Feat</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('Mori')">
+                    <span class="artist-name">Mori</span>
+                    <span class="artist-role">Feat</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('Underwater')">
+                    <span class="artist-name">Underwater</span>
+                    <span class="artist-role">Feat</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('Piti')">
+                    <span class="artist-name">Piti</span>
+                    <span class="artist-role">Feat</span>
+                </div>
+                <div class="artist-tag" onclick="openArtistModal('Mandy')">
+                    <span class="artist-name">Mandy</span>
+                    <span class="artist-role">Feat</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 H1TL3R0XX — Definitiv⭐s</p>
+    </footer>
+
+    <script>
+        /* --- ANIMACIÓN DE AGITACIÓN PARA EL SOBRE --- */
+        function shakeEnvelope() {
+            const envelope = document.getElementById('interactive-envelope');
+            if (envelope.classList.contains('shake')) return;
+            envelope.classList.add('shake');
+            setTimeout(() => {
+                envelope.classList.remove('shake');
+            }, 400);
+        }
+
+        /* --- ANIMACIÓN DE AGITACIÓN PARA TEMAS BLOQUEADOS --- */
+        function triggerLockedItem(element) {
+            element.classList.add('shake');
+            setTimeout(() => {
+                element.classList.remove('shake');
+            }, 400);
+        }
+
+        /* --- LÓGICA DE PREVIEW DE AUDIO (15 SEGUNDOS) --- */
+        const previewAudio = document.getElementById('previewAudio');
+        let currentPlayingBtn = null;
+        let previewTimeout = null;
+
+        function playPreview(url, btnElement) {
+            if (currentPlayingBtn === btnElement && !previewAudio.paused) {
+                stopPreview();
+                return;
+            }
+
+            stopPreview();
+
+            currentPlayingBtn = btnElement;
+            currentPlayingBtn.classList.add('playing');
+            currentPlayingBtn.innerHTML = '⏹ REPRODUCIENDO...';
+
+            previewAudio.src = url;
+            previewAudio.currentTime = 0;
+            previewAudio.play().catch(e => console.log("Error al reproducir preview:", e));
+
+            previewTimeout = setTimeout(() => {
+                stopPreview();
+            }, 15000);
+        }
+
+        function stopPreview() {
+            if (previewAudio) {
+                previewAudio.pause();
+                previewAudio.currentTime = 0;
+            }
+            if (previewTimeout) {
+                clearTimeout(previewTimeout);
+                previewTimeout = null;
+            }
+            if (currentPlayingBtn) {
+                currentPlayingBtn.classList.remove('playing');
+                currentPlayingBtn.innerHTML = '▶ PREVIEW (15s)';
+                currentPlayingBtn = null;
+            }
+        }
+
+        /* --- LÓGICA DEL MODAL DE ARTISTAS --- */
+        function openArtistModal(artistName) {
+            const modal = document.getElementById('artist-modal');
+            const titleEl = document.getElementById('modalArtistName');
+            const descEl = document.getElementById('modalArtistDesc');
+
+            titleEl.innerText = artistName;
+            descEl.innerText = `(INSERTAR DESCRIPCION de [${artistName}])`;
+            modal.classList.add('active');
+        }
+
+        function closeArtistModal() {
+            const modal = document.getElementById('artist-modal');
+            modal.classList.remove('active');
+        }
+
+        /* --- PANTALLA INICIAL DE CARGA --- */
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.getElementById('loader-screen');
+                loader.style.opacity = '0';
+                loader.style.visibility = 'hidden';
+            }, 2000);
+        });
+
+        /* --- PARTÍCULAS SOBRE EL SOBRE --- */
+        const envCanvas = document.getElementById("envelope-particles-canvas");
+        const envCtx = envCanvas.getContext("2d");
+        const envWrapper = document.getElementById("interactive-envelope");
+
+        function resizeEnvCanvas() {
+            envCanvas.width = envWrapper.clientWidth;
+            envCanvas.height = envWrapper.clientHeight;
+        }
+        resizeEnvCanvas();
+        window.addEventListener('resize', resizeEnvCanvas);
+
+        const envParticles = [];
+        const envColors = ["#3b82f6", "#60a5fa", "#a855f7", "#c084fc", "#4c1d95"];
+
+        envWrapper.addEventListener('mousemove', (e) => {
+            const rect = envWrapper.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+
+            for (let i = 0; i < 2; i++) {
+                envParticles.push({
+                    x: x,
+                    y: y,
+                    radius: Math.random() * 3 + 1.2,
+                    color: envColors[Math.floor(Math.random() * envColors.length)],
+                    vx: (Math.random() - 0.5) * 1.2,
+                    vy: (Math.random() - 0.5) * 1.2 - 0.3,
+                    opacity: 0.85,
+                    life: Math.random() * 0.025 + 0.015
+                });
+            }
+        });
+
+        function animateEnvelopeParticles() {
+            envCtx.clearRect(0, 0, envCanvas.width, envCanvas.height);
+
+            for (let i = envParticles.length - 1; i >= 0; i--) {
+                let p = envParticles[i];
+                p.x += p.vx;
+                p.y += p.vy;
+                p.opacity -= p.life;
+
+                if (p.opacity <= 0) {
+                    envParticles.splice(i, 1);
+                    continue;
+                }
+
+                envCtx.beginPath();
+                envCtx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
+                envCtx.fillStyle = p.color;
+                envCtx.globalAlpha = p.opacity;
+                envCtx.shadowBlur = 8;
+                envCtx.shadowColor = p.color;
+                envCtx.fill();
+                envCtx.shadowBlur = 0;
+            }
+            envCtx.globalAlpha = 1;
+
+            requestAnimationFrame(animateEnvelopeParticles);
+        }
+        animateEnvelopeParticles();
+
+        /* --- SISTEMA DE REPRODUCTOR DE AUDIO AMBIENTAL --- */
+        const audio = document.getElementById("rainAudio");
+        const audioBtn = document.getElementById("audioBtn");
+        const audioText = document.getElementById("audioText");
+        let isPlaying = false;
+
+        function toggleAudio() {
+            if (isPlaying) {
+                audio.pause();
+                audioText.innerText = "SONIDO: OFF";
+                audioBtn.style.borderColor = "rgba(168, 85, 247, 0.5)";
+                audioBtn.style.boxShadow = "0 0 15px rgba(168, 85, 247, 0.3)";
+            } else {
+                audio.play().then(() => {
+                    audioText.innerText = "SONIDO: ON";
+                    audioBtn.style.borderColor = "#a855f7";
+                    audioBtn.style.boxShadow = "0 0 25px rgba(168, 85, 247, 0.8)";
+                }).catch(err => {
+                    console.log("Auto-play bloqueado por el navegador:", err);
+                });
+            }
+            isPlaying = !isPlaying;
+        }
+
+        /* --- RELÁMPAGOS ALEATORIOS --- */
+        const lightningEl = document.getElementById("lightning");
+
+        function triggerLightning() {
+            lightningEl.style.opacity = "0.7";
+            setTimeout(() => {
+                lightningEl.style.opacity = "0";
+                setTimeout(() => {
+                    lightningEl.style.opacity = "0.9";
+                    setTimeout(() => {
+                        lightningEl.style.opacity = "0";
+                    }, 80);
+                }, 100);
+            }, 60);
+
+            const nextFlash = Math.random() * 7000 + 8000;
+            setTimeout(triggerLightning, nextFlash);
+        }
+
+        setTimeout(triggerLightning, 5000);
+
+        /* --- PARALLAX 3D EN EL SOBRE --- */
+        const envelope = document.getElementById('interactive-envelope');
+        const screen = document.getElementById('envelope-screen');
+
+        screen.addEventListener('mousemove', (e) => {
+            if (screen.classList.contains('unlock-animation')) return;
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            envelope.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg) rotate(-1.2deg)`;
+        });
+
+        screen.addEventListener('mouseleave', () => {
+            if (screen.classList.contains('unlock-animation')) return;
+            envelope.style.transform = `rotateY(0deg) rotateX(0deg) rotate(-1.2deg)`;
+        });
+
+        /* --- APERTURA DE CLAVE --- */
+        function unlockSite() {
+            const input = document.getElementById('pass-code');
+            const envelopeScreen = document.getElementById('envelope-screen');
+            const waxSeal = document.getElementById('wax-seal');
+            const value = input.value.trim().toUpperCase();
+
+            if (value === "PROTO") {
+                if (!isPlaying) {
+                    toggleAudio();
+                }
+
+                waxSeal.classList.add('seal-broken');
+
+                setTimeout(() => {
+                    envelopeScreen.classList.add('unlock-animation');
+                }, 200);
+
+                setTimeout(() => {
+                    envelopeScreen.classList.add('fade-out');
+                }, 750);
+            } else {
+                input.classList.add('shake');
+                setTimeout(() => {
+                    input.classList.remove('shake');
+                }, 400);
+            }
+        }
+
+        document.getElementById('pass-code').addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                unlockSite();
+            }
+        });
+
+        /* --- CONTADOR (17 DE DICIEMBRE DE 2026 A LAS 00:00:00 CET) --- */
+        const releaseDate = new Date("2026-12-17T00:00:00+01:00").getTime();
+
+        const updateCountdown = () => {
+            const now = new Date().getTime();
+            const distance = releaseDate - now;
+
+            if (distance < 0) {
+                document.querySelector(".countdown-box").innerHTML = "<h2 style='color:#a855f7; font-size: 2rem;'>¡EL ÁLBUM YA ESTÁ DISPONIBLE!</h2>";
+                
+                document.querySelectorAll('.secret-reveal').forEach(el => {
+                    el.classList.add('revealed');
+                });
+                document.querySelectorAll('.lock-icon-container').forEach(el => {
+                    el.style.display = 'none';
+                });
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+        };
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        /* --- CANVAS DE ATMÓSFERA PRINCIPAL --- */
+        const canvas = document.getElementById("atmosphere-canvas");
+        const ctx = canvas.getContext("2d");
+
+        let width, height;
+
+        function resizeCanvas() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener("resize", resizeCanvas);
+        resizeCanvas();
+
+        const sparkCount = 35;
+        const sparks = [];
+
+        for (let i = 0; i < sparkCount; i++) {
+            sparks.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 2 + 0.5,
+                speedY: -(Math.random() * 0.8 + 0.2),
+                opacity: Math.random() * 0.7 + 0.3,
+                pulse: Math.random() * 0.05 + 0.01
+            });
+        }
+
+        const rainDropCount = 110;
+        const rainDrops = [];
+
+        for (let i = 0; i < rainDropCount; i++) {
+            rainDrops.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                length: Math.random() * 18 + 8,
+                speedY: Math.random() * 10 + 8,
+                speedX: -1.5,
+                opacity: Math.random() * 0.3 + 0.1
+            });
+        }
+
+        const fogParticleCount = 18;
+        const fogParticles = [];
+
+        for (let i = 0; i < fogParticleCount; i++) {
+            fogParticles.push({
+                x: Math.random() * width,
+                y: Math.random() * height,
+                radius: Math.random() * 180 + 120,
+                speedX: (Math.random() - 0.5) * 0.3,
+                speedY: (Math.random() - 0.5) * 0.1,
+                opacity: Math.random() * 0.12 + 0.04
+            });
+        }
+
+        function drawAtmosphere() {
+            ctx.clearRect(0, 0, width, height);
+
+            for (let i = 0; i < fogParticleCount; i++) {
+                let f = fogParticles[i];
+                f.x += f.speedX;
+                f.y += f.speedY;
+
+                if (f.x < -f.radius) f.x = width + f.radius;
+                if (f.x > width + f.radius) f.x = -f.radius;
+                if (f.y < -f.radius) f.y = height + f.radius;
+                if (f.y > height + f.radius) f.y = -f.radius;
+
+                let gradient = ctx.createRadialGradient(f.x, f.y, 0, f.x, f.y, f.radius);
+                gradient.addColorStop(0, `rgba(168, 85, 247, ${f.opacity})`);
+                gradient.addColorStop(0.5, `rgba(59, 130, 246, ${f.opacity * 0.5})`);
+                gradient.addColorStop(1, "rgba(0, 0, 0, 0)");
+
+                ctx.fillStyle = gradient;
+                ctx.beginPath();
+                ctx.arc(f.x, f.y, f.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+
+            for (let i = 0; i < sparkCount; i++) {
+                let s = sparks[i];
+                s.y += s.speedY;
+                s.opacity += Math.sin(Date.now() * 0.003) * s.pulse;
+
+                if (s.y < 0) {
+                    s.y = height + 10;
+                    s.x = Math.random() * width;
+                }
+
+                ctx.fillStyle = `rgba(192, 132, 252, ${Math.abs(s.opacity)})`;
+                ctx.shadowBlur = 8;
+                ctx.shadowColor = "#a855f7";
+                ctx.beginPath();
+                ctx.arc(s.x, s.y, s.radius, 0, Math.PI * 2);
+                ctx.fill();
+                ctx.shadowBlur = 0;
+            }
+
+            ctx.strokeStyle = "rgba(191, 219, 254, 0.4)";
+            ctx.lineWidth = 1.1;
+            ctx.beginPath();
+
+            for (let i = 0; i < rainDropCount; i++) {
+                let r = rainDrops[i];
+
+                ctx.moveTo(r.x, r.y);
+                ctx.lineTo(r.x + r.speedX, r.y + r.length);
+
+                r.x += r.speedX;
+                r.y += r.speedY;
+
+                if (r.y > height) {
+                    r.y = -r.length;
+                    r.x = Math.random() * width;
+                }
+            }
+            ctx.stroke();
+
+            requestAnimationFrame(drawAtmosphere);
+        }
+
+        drawAtmosphere();
+    </script>
+</body>
+</html>
