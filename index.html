@@ -706,6 +706,23 @@
             100% { transform: scale(1.08); }
         }
 
+        /* Estilo para la etiqueta de Preview Próximo */
+        .upcoming-container {
+            margin-left: auto;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(234, 179, 8, 0.1);
+            border: 1px solid rgba(234, 179, 8, 0.4);
+            color: #eab308;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            box-shadow: 0 0 10px rgba(234, 179, 8, 0.2);
+        }
+
         .lock-icon-container {
             margin-left: auto;
             display: flex;
@@ -813,6 +830,43 @@
         }
 
         /* -------------------------------------------------------------
+           SECCIÓN COMING SOON
+        ------------------------------------------------------------- */
+        .coming-soon-card {
+            background: rgba(12, 10, 28, 0.85);
+            border: 2px dashed rgba(168, 85, 247, 0.5);
+            border-radius: 20px;
+            padding: 40px 30px;
+            margin-top: 50px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 25px rgba(168, 85, 247, 0.15);
+            text-align: center;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .coming-soon-card:hover {
+            border-color: #a855f7;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8), 0 0 35px rgba(168, 85, 247, 0.3);
+        }
+
+        .coming-soon-card h2 {
+            font-family: 'Pirata One', cursive;
+            font-size: 3.5rem;
+            color: #c084fc;
+            margin-bottom: 15px;
+            text-shadow: 0 0 15px rgba(168, 85, 247, 0.8);
+            letter-spacing: 3px;
+        }
+
+        .coming-soon-card p {
+            font-size: 1.1rem;
+            color: #94a3b8;
+            font-weight: 500;
+            letter-spacing: 1px;
+            line-height: 1.6;
+        }
+
+        /* -------------------------------------------------------------
            MODAL PARA DESCRIPCIÓN DE ARTISTAS
         ------------------------------------------------------------- */
         #artist-modal {
@@ -912,13 +966,13 @@
             .envelope-writing { font-size: 1.6rem; bottom: 25px; }
             h1 { font-size: 4rem; }
             .subtitle { font-size: 1.1rem; }
-            .tracklist-card h2, .artists-card h2 { font-size: 2.8rem; }
+            .tracklist-card h2, .artists-card h2, .coming-soon-card h2 { font-size: 2.8rem; }
             .time-number { font-size: 3.8rem; }
             .time-block { min-width: 70px; }
             .timer { gap: 15px; }
             li { font-size: 1.1rem; padding: 12px 15px; flex-direction: column; align-items: flex-start; gap: 10px; }
             .track-info-container { width: 100%; }
-            .preview-btn, .lock-icon-container { margin-left: 0; width: 100%; justify-content: center; }
+            .preview-btn, .upcoming-container, .lock-icon-container { margin-left: 0; width: 100%; justify-content: center; }
             .feat { font-size: 0.95rem; display: block; width: 100%; margin-left: 0; margin-top: 4px; }
             .artists-grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -1053,13 +1107,15 @@
                         <span>BLOQUEADO</span>
                     </div>
                 </li>
-                <!-- Tema 4: Visible -->
+                <!-- Tema 4: Visible con Preview Próximo -->
                 <li>
                     <div class="track-info-container">
                         <span>Bag Band</span> 
                         <span class="feat"><span class="clickable-artist" onclick="openArtistModal('D Reid')">D Reid</span>, <span class="clickable-artist" onclick="openArtistModal('Bolt')">Bolt</span></span>
                     </div>
-                    <button class="preview-btn" onclick="playPreview('https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3', this)">▶ PREVIEW (15s)</button>
+                    <div class="upcoming-container">
+                        ⏳ PREVIEW DENTRO DE POCO
+                    </div>
                 </li>
                 <!-- Tema 5: Bloqueado -->
                 <li onclick="triggerLockedItem(this)">
@@ -1171,6 +1227,12 @@
                     <span class="artist-role">Feat</span>
                 </div>
             </div>
+        </div>
+
+        <!-- Sección Coming Soon -->
+        <div class="coming-soon-card">
+            <h2>Coming Soon...</h2>
+            <p>Nuevas sorpresas, remixes y futuras actualizaciones estarán disponibles muy pronto en la web.</p>
         </div>
     </div>
 
