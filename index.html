@@ -2,13 +2,13 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>H1TL3R0XX - Lanzamiento Oficial</title>
     <!-- Fuentes: Alex Brush, Pirata One, Bebas Neue, Montserrat -->
     <link href="https://fonts.googleapis.com/css2?family=Alex+Brush&family=Bebas+Neue&family=Montserrat:wght@500;700;900&family=Pirata+One&display=swap" rel="stylesheet">
     <style>
         /* -------------------------------------------------------------
-           0. CURSOR PERSONALIZADO TÉTRICO Y OSCURO
+           0. CURSOR PERSONALIZADO Y BLOQUEO DE SCROLL INICIAL
         ------------------------------------------------------------- */
         * {
             margin: 0;
@@ -31,6 +31,16 @@
             position: relative;
         }
 
+        /* Clase para congelar completamente el scroll de la web de fondo */
+        body.scroll-locked {
+            overflow: hidden !important;
+            position: fixed !important;
+            width: 100% !important;
+            height: 100vh !important;
+            height: -webkit-fill-available !important;
+            touch-action: none !important;
+        }
+
         /* -------------------------------------------------------------
            PANTALLA DE CARGA INICIAL (LOADER)
         ------------------------------------------------------------- */
@@ -38,8 +48,8 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             background: #030208;
             z-index: 20000;
             display: flex;
@@ -133,22 +143,24 @@
         }
 
         /* -------------------------------------------------------------
-           1. PANTALLA DE BIENVENIDA & SOBRE ULTRA-REALISTA
+           1. PANTALLA DE BIENVENIDA & SOBRE (AJUSTADA PARA MÓVILES)
         ------------------------------------------------------------- */
         #envelope-screen {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
-            background: radial-gradient(circle at 50% 40%, rgba(30, 15, 55, 0.88) 0%, rgba(3, 2, 8, 0.96) 80%);
-            backdrop-filter: blur(10px);
+            width: 100%;
+            height: 100%;
+            min-height: -webkit-fill-available;
+            background: #030208; /* Fondo sólido para evitar filtraciones */
+            background-image: radial-gradient(circle at 50% 40%, rgba(30, 15, 55, 0.95) 0%, rgba(3, 2, 8, 0.98) 80%);
             z-index: 9999;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
             gap: 35px;
+            touch-action: none; /* Bloquea gestos táctiles de arrastre */
             transition: opacity 1s ease, visibility 1s ease, filter 1s ease;
             perspective: 1000px;
         }
@@ -187,7 +199,6 @@
             border-radius: 6px;
         }
 
-        /* SOBRE ULTRA-REALISTA CON PLIEGUES SUTÍLES Y LIMPIOS */
         .envelope-wrapper {
             position: relative;
             width: 90vw;
@@ -216,7 +227,6 @@
             50% { transform: translateY(-12px) rotate(0.8deg); }
         }
 
-        /* Solapas */
         .flap-top {
             position: absolute;
             top: 0;
@@ -311,7 +321,6 @@
             opacity: 0;
         }
 
-        /* TEXTO EN EL SOBRE */
         .envelope-writing {
             position: absolute;
             bottom: 38px;
@@ -336,7 +345,7 @@
             justify-content: center;
             align-items: center;
             z-index: 5;
-            background: rgba(18, 14, 28, 0.75);
+            background: rgba(18, 14, 28, 0.85);
             padding: 12px 20px;
             border-radius: 12px;
             border: 1px solid rgba(168, 85, 247, 0.4);
@@ -630,7 +639,6 @@
             box-shadow: 0 0 15px rgba(168, 85, 247, 0.3);
         }
 
-        /* --- EFECTO BORROSO / SECRETO --- */
         .secret-reveal {
             filter: blur(8px);
             user-select: none;
@@ -660,7 +668,6 @@
             font-style: italic;
         }
 
-        /* Botón de Preview de Audio para Temas */
         .preview-btn {
             background: rgba(168, 85, 247, 0.2);
             border: 1px solid #a855f7;
@@ -699,7 +706,6 @@
             100% { transform: scale(1.08); }
         }
 
-        /* Icono de Candado Cerrado */
         .lock-icon-container {
             margin-left: auto;
             display: flex;
@@ -918,7 +924,7 @@
         }
     </style>
 </head>
-<body>
+<body class="scroll-locked">
 
     <!-- Pantalla Inicial de Carga -->
     <div id="loader-screen">
@@ -933,7 +939,7 @@
     <div id="artist-modal" onclick="closeArtistModal(event)">
         <div class="modal-content" onclick="event.stopPropagation()">
             <h3 class="modal-title" id="modalArtistName">Artista</h3>
-            <p class="modal-desc" id="modalArtistDesc">(INSERTAR DESCRIPCION de [Nombre del Artista])</p>
+            <p class="modal-desc" id="modalArtistDesc">Cargando información...</p>
             <button class="modal-close-btn" onclick="closeArtistModal()">CERRAR</button>
         </div>
     </div>
@@ -1013,7 +1019,7 @@
             </div>
         </div>
 
-        <!-- Tracklist con Featurings aplicados según la regla exacta de la imagen -->
+        <!-- Tracklist con Featurings -->
         <div class="tracklist-card">
             <h2>Tracklist</h2>
             <ol>
@@ -1173,6 +1179,19 @@
     </footer>
 
     <script>
+        /* --- DICCIONARIO DE DESCRIPCIONES DE ARTISTAS --- */
+        const artistDescriptions = {
+            "DiiL A": "Denele → DNL → DiiL → DiiL A",
+            "D Reid": "Dotado de habilidades excepcionales asimiladas en el “Pepe”, colaborando directamente en el proyecto Anti-Hitlero.",
+            "Bolt": "Con isquios renovados y con las pinzas olvidadas, se sube a la nave con 5 temas nuevos en el disco para dejar sin cartas a los hitleros.",
+            "Gamebetis": "El artista iberoamericano emergente, se une para acabar con la dinastia de Maikel y reclamar las tierras perdidas.",
+            "Noizy": "El talentoso jugador de Fortnite y Steal a Brainrot, está preparado para terminar con Papa Alvaro, como un inesperado Featuring del Álbum.",
+            "Mori": "Comandando el ejercito Moriano, y de la mano de “Los Bro” confía en devolver el territorio infestado a lo que solia ser.",
+            "Underwater": "Colaborador envuelto en misterio. Aporta texturas sonoras sumergidas y un flow denso que destaca en 'H1TL3R4$'.",
+            "Piti": "Con una sólida formación en el Fleming, y abandonando su pasado como “Lion”, viene más fuerte que nunca, junto al feat más esperado del año.",
+            "Mandy": "“Er de loh zoho blancoh”, llegó Mandy como último colaborador para acabar con la dinastía de Papa Álvaro."
+        };
+
         /* --- ANIMACIÓN DE AGITACIÓN PARA EL SOBRE --- */
         function shakeEnvelope() {
             const envelope = document.getElementById('interactive-envelope');
@@ -1240,7 +1259,13 @@
             const descEl = document.getElementById('modalArtistDesc');
 
             titleEl.innerText = artistName;
-            descEl.innerText = `(INSERTAR DESCRIPCION de [${artistName}])`;
+            
+            if (artistDescriptions[artistName]) {
+                descEl.innerText = artistDescriptions[artistName];
+            } else {
+                descEl.innerText = `Información de ${artistName} no disponible.`;
+            }
+            
             modal.classList.add('active');
         }
 
@@ -1382,7 +1407,7 @@
             envelope.style.transform = `rotateY(0deg) rotateX(0deg) rotate(-1.2deg)`;
         });
 
-        /* --- APERTURA DE CLAVE --- */
+        /* --- APERTURA DE CLAVE CON REMOCIÓN DE SCROLL LOCK --- */
         function unlockSite() {
             const input = document.getElementById('pass-code');
             const envelopeScreen = document.getElementById('envelope-screen');
@@ -1402,7 +1427,9 @@
 
                 setTimeout(() => {
                     envelopeScreen.classList.add('fade-out');
-                }, 750);
+                    // REACTIVAR SCROLL NORMAL TRAS FINALIZAR ANIMACIÓN
+                    document.body.classList.remove('scroll-locked');
+                }, 1000);
             } else {
                 input.classList.add('shake');
                 setTimeout(() => {
