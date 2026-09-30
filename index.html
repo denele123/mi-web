@@ -1113,15 +1113,13 @@
                         <span>BLOQUEADO</span>
                     </div>
                 </li>
-                <!-- Tema 4: Visible -->
+                <!-- Tema 4: Visible con Preview -->
                 <li>
                     <div class="track-info-container">
                         <span>Bag Band</span> 
                         <span class="feat"><span class="clickable-artist" onclick="openArtistModal('D Reid')">D Reid</span>, <span class="clickable-artist" onclick="openArtistModal('Bolt')">Bolt</span></span>
                     </div>
-                    <div class="upcoming-container">
-                        ⏳ PREVIEW DENTRO DE POCO
-                    </div>
+                    <button class="preview-btn" onclick="playPreview('./assets/mi-cancion-2.mp3', this)">▶ PREVIEW (15s)</button>
                 </li>
                 <!-- Tema 5: Bloqueado -->
                 <li onclick="triggerLockedItem(this)">
